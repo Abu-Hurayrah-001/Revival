@@ -4,9 +4,9 @@ import { Router, Request, Response } from "express";
 // CONSTS. AND VARS.
 const homeRouter = Router();
 
-//SETTING-UP-ROUTE
+//ROUTES
 homeRouter.get("/", (req: Request, res:Response) =>{
-    res.send("You are not supposed to be here, GOOD SIR!!")
+    res.send("Feeling brave today, aren't we!!")
 });
 
 export default homeRouter;
