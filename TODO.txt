@@ -1,0 +1,1 @@
+1. Implement CSRF protection if I implemented cookies in auth (server.ts)
