@@ -5,7 +5,7 @@ import { Router, Request, Response } from "express";
 const homeRouter = Router();
 
 //ROUTES
-homeRouter.get("/", (req: Request, res:Response) =>{
+homeRouter.get("/", (req: Request, res:Response) => {
     res.send("Feeling brave today, aren't we!!")
 });
 

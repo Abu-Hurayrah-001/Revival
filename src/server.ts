@@ -4,8 +4,9 @@ import dotenv from "dotenv";
 import cors, { CorsOptions } from "cors";
 import { rateLimiter } from "./utils/rateLimiter";
 import helmet from "helmet";
-import homeRouter from "./routes/home.route";
+import homeRouter from "./routes/home/home.route";
 import connectDB from "./utils/db";
+import errorHandler from "./middlewares/error_handling/erroHandler.middleware";
 
 // lOADING THE .ENV FILE
 dotenv.config();
@@ -27,6 +28,7 @@ app.use(cors(corsConfiguration));
 app.use(helmet());
 app.use(express.json());
 app.use(rateLimiter);
+app.use(errorHandler);
 //TODO: Implement CSRF protection if I implemented cookies in auth
 
 // ROUTES

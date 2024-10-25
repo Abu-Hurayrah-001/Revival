@@ -26,8 +26,8 @@ const connectDB = async(): Promise<void> => {
             }
 
             retries -= 1;
-        }
-    }
-}
+        };
+    };
+};
 
 export default connectDB;
