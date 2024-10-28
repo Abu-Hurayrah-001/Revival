@@ -1,5 +1,6 @@
 // IMPORTS
 import mongoose from "mongoose";
+import CustomError from "../middlewares/error_handling/customError.middleware";
 
 // CONSTS. AND VARS.
 let retries: number = 5;
@@ -18,7 +19,7 @@ const connectDB = async(): Promise<void> => {
             console.error(`Error connecting to MongoDB: ${error.message}`);
     
             if (retries === 0) {
-                console.error("All retries failed!!");
+                throw new CustomError("Failed to connect to MongoDB after multiple attempts", 500);
                 process.exit(1);
             } else {
                 console.log(`Retrying connection... Attempls left: ${retries}`);
