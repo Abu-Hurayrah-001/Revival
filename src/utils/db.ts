@@ -19,7 +19,7 @@ const connectDB = async(): Promise<void> => {
             console.error(`Error connecting to MongoDB: ${error.message}`);
     
             if (retries === 0) {
-                throw new CustomError("Failed to connect to MongoDB after multiple attempts", 500);
+                throw new CustomError("Failed to connect to MongoDB after multiple attempts? SKILL ISSUE!!", 500);
                 process.exit(1);
             } else {
                 console.log(`Retrying connection... Attempls left: ${retries}`);

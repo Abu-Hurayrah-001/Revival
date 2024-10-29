@@ -5,6 +5,6 @@ import rateLimit from "express-rate-limit";
 export const rateLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 100,
-    message: "Too many requests from this I.P. (Kindly come back after 15 minutes)",
+    message: "With great number of requests, comes a 15 minute ban!!",
     legacyHeaders: false,
 });
