@@ -16,7 +16,7 @@ const connectDB = async(): Promise<void> => {
             return;
         // catch-block
         } catch (error: any) {
-            console.error(`Error connecting to MongoDB: ${error.message}`);
+            console.error(`Oopsies!! Error connecting to MongoDB: ${error.message}`);
     
             if (retries === 0) {
                 throw new CustomError("Failed to connect to MongoDB after multiple attempts? SKILL ISSUE!!", 500);

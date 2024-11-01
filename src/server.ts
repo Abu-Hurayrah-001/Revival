@@ -7,6 +7,7 @@ import helmet from "helmet";
 import homeRouter from "./routes/home/home.route";
 import connectDB from "./utils/db";
 import errorHandler from "./middlewares/error_handling/erroHandler.middleware";
+import signUpRouter from "./routes/home/auth/sign_up.route";
 
 // lOADING THE .ENV FILE
 dotenv.config();
@@ -33,6 +34,7 @@ app.use(errorHandler);
 
 // ROUTES
 app.use("/", homeRouter);
+app.use("/api/sign-up", signUpRouter)
 
 // STARTING THE SERVER
 app.listen(PORT, () => {
