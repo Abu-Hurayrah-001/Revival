@@ -1,3 +1,3 @@
-1. Implement CSRF protection if I implemented cookies in auth (server.ts)
+1. CSRF Protection: If you're implementing forms, consider using CSRF protection middleware.
 
 2. Implement password hashing in "user.model.ts"

@@ -6,6 +6,7 @@ import bcrypt from 'bcryptjs';
 interface IUser extends Document {
     email: string;
     password: string;
+    comparePassword(password: string): Promise<boolean>;
 }
 
 const userSchema: Schema<IUser> = new Schema({
@@ -37,5 +38,10 @@ userSchema.pre<IUser>("save", async function(next) {
         next(error)
     }
 });
+
+//PASSWORD COMPARISON METHOD
+userSchema.methods.comparePassword = async function(password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.password);
+};
 
 export default mongoose.model<IUser>("User", userSchema);
