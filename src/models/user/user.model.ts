@@ -3,7 +3,7 @@ import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from 'bcryptjs';
 
 // USER MODEL
-interface IUser extends Document {
+export interface IUser extends Document {
     email: string;
     password: string;
     comparePassword(password: string): Promise<boolean>;

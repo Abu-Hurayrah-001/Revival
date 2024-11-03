@@ -14,13 +14,18 @@
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "connect-flash": "^0.1.1",
     "cors": "^2.8.5",
     "csrf": "^3.1.0",
     "dotenv": "^16.4.5",
     "express": "^4.21.1",
     "express-rate-limit": "^7.4.1",
+    "express-session": "^1.18.1",
     "helmet": "^8.0.0",
-    "mongoose": "^8.7.2"
+    "mongoose": "^8.8.0",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
@@ -29,6 +34,7 @@
     "@types/express": "^5.0.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.7.5",
+    "@types/passport-local": "^1.0.38",
     "cookie-parser": "^1.4.7",
     "nodemon": "^3.1.7",
     "ts-node": "^10.9.2",
