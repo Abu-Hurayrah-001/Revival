@@ -1,5 +1,5 @@
 //IMPORTS
-import { Strategy as LoaclStrategy } from "passport-local";
+import { Strategy as LocalStrategy } from "passport-local";
 import User, { IUser } from "../models/user/user.model";
 import passport, { PassportStatic } from "passport";
 
@@ -10,13 +10,13 @@ const localOptions = {
 };
 
 export const initializePassport = (passport: PassportStatic) => {
-    passport.use(new LoaclStrategy(localOptions, async (email, password, done) => {
+    passport.use(new LocalStrategy(localOptions, async (email, password, done) => {
         // try-block
         try {
-          const user = await User.findOne({ email });
+          const user = await User.findOne({ email }).select("+password");
 
           if (!user) {
-            return done(null, false, { message: "No user exists with that email!! (evil laughter intensifies...)" });
+            return done(null, false, { message: "Oopsies!! No user exists with that email" });
           };
 
           const isMatch = await user.comparePassword(password);

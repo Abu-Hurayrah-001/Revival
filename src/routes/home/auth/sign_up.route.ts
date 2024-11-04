@@ -13,8 +13,10 @@ signUpRouter.post("/", asyncErrorHandler(async(req: Request, res: Response, next
     if (!email || !password) {
         res.status(400).json({
             success: false,
-            message: "Email or password or both are missing"
+            message: "Credential(s) missing"
         });
+
+        return;
     };
 
     if (existingUser) {
