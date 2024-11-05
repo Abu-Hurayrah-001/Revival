@@ -24,6 +24,8 @@ signUpRouter.post("/", asyncErrorHandler(async(req: Request, res: Response, next
             success: false,
             message: "User already exists, Gonna Cry?",
         });
+
+        return;
     };
 
     const user = new User({ email, password });
@@ -33,6 +35,8 @@ signUpRouter.post("/", asyncErrorHandler(async(req: Request, res: Response, next
         success: true,
         message: "And so, it begins...",
     });
+    
+    return;
 }));
 
 export default signUpRouter;

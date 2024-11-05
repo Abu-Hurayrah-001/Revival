@@ -1,3 +1,7 @@
 1. CSRF Protection: If you're implementing forms, consider using CSRF protection middleware.
 
-2. Implement password hashing in "user.model.ts"
+2. Implement password hashing in "user.model.ts".
+
+3. Set a Namaz Schedule where the game get disabled at the Prayer times set by the player.
+
+4. Set NODE_ENV to "production" in production

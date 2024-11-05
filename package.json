@@ -32,6 +32,7 @@
     "@types/cookie-parser": "^1.4.7",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.0",
+    "@types/express-session": "^1.18.0",
     "@types/mongoose": "^5.11.97",
     "@types/node": "^22.7.5",
     "@types/passport-local": "^1.0.38",

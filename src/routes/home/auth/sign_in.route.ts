@@ -20,14 +20,17 @@ signInRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
 
     passport.authenticate("local", (err: Error | null, user: Express.User, info: { message?: string }) => {
         if (err) {
-            return next(err);
+            next(err);
+            return;
         };
 
         if (!user) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: false,
                 message: info?.message || "Authentication failed? Aww, don't cry"
             });
+
+            return;
         };
 
         req.logIn(user, (logInError: Error | null) => {
@@ -35,7 +38,7 @@ signInRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
                 return next(logInError);
             };
 
-            return res.status(200).json({
+            res.status(200).json({
                 success: true,
                 message: "Signed in successfully",
                 user: {
@@ -43,6 +46,8 @@ signInRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
                     email: (user as IUser).email,
                 },
             });
+
+            return;
         });
     }) (req, res, next);
 });

@@ -13,22 +13,26 @@ export const initializePassport = (passport: PassportStatic) => {
     passport.use(new LocalStrategy(localOptions, async (email, password, done) => {
         // try-block
         try {
-          const user = await User.findOne({ email }).select("+password");
+          	const user = await User.findOne({ email }).select("+password");
 
-          if (!user) {
-            return done(null, false, { message: "Oopsies!! No user exists with that email" });
-          };
+          	if (!user) {
+				done(null, false, { message: "Oopsies!! No user exists with that email" });
+            	return;
+		  	};
 
-          const isMatch = await user.comparePassword(password);
+        	const isMatch = await user.comparePassword(password);
 
-          if (!isMatch) {
-            return done(null, false, { message: "Incorrect Password!! Need some dirt in your eye?" });
-          };
+        	if (!isMatch) {
+            	done(null, false, { message: "Incorrect Password!! Need some dirt in your eye?" });
+            	return;
+        	};
 
-          return done(null, user);
+        	done(null, user);
+        	return;
         // catch-block
         } catch (error: any) {
-            return done(error);
+            done(error);
+            return;
         };
     }));
 

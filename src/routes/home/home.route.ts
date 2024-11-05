@@ -6,7 +6,8 @@ const homeRouter = Router();
 
 //ROUTES
 homeRouter.get("/", (req: Request, res:Response) => {
-    res.send("Feeling brave today, aren't we!!")
+    res.send("Feeling brave today, aren't we!!");
+    return;
 });
 
 export default homeRouter;
