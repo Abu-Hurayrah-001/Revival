@@ -5,7 +5,7 @@ import cors, { CorsOptions } from "cors";
 import { rateLimiterConfig } from "./config/rateLimiterConfig";
 import helmet from "helmet";
 import homeRouter from "./routes/home/home.route";
-import connectDB from "./utils/db";
+import connectDB from "./utils/connectDB";
 import errorHandler from "./middlewares/error_handling/erroHandler.middleware";
 import signUpRouter from "./routes/home/auth/sign_up.route";
 import signInRouter from "./routes/home/auth/sign_in.route";

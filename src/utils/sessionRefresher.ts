@@ -1,5 +1,4 @@
 //IMPORTS
-import session from "express-session";
 import { Request, Response, NextFunction } from "express";
 
 //SESSION REFRESHER
