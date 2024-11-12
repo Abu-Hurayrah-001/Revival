@@ -1,4 +1,4 @@
-1. CSRF Protection: If you're implementing forms, consider using CSRF protection middleware.
+1. Implement CSRF protection middleware.
 
 2. Implement password hashing in "user.model.ts".
 

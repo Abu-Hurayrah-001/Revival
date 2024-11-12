@@ -18,7 +18,7 @@ export const sessionConfig: SessionOptions = {
         maxAge: 1000 * 60 * 60,
     },
     store: MongoStore.create({
-        client: mongoose.connection.getClient(),
+        mongoUrl: process.env.MONGO_URI,
         ttl: 14 * 24 * 60 * 60, // 14-days
     }),
 };
