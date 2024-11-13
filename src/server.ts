@@ -1,7 +1,7 @@
 // IMPORTS
 import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
-import cors, { CorsOptions } from "cors";
+import cors from "cors";
 import { rateLimiterConfig } from "./config/rateLimiterConfig";
 import helmet from "helmet";
 import homeRouter from "./routes/home/home.route";
@@ -44,6 +44,11 @@ app.use(errorHandler);
 app.use("/", homeRouter);
 app.use("/api/sign-up", signUpRouter);
 app.use("/api/sign-in", signInRouter);
+
+app.use((req: Request, res: Response, next: NextFunction) => {
+    res.send("One simply does not hit the backend route on accident!!");
+    return;
+});
 
 // STARTING THE SERVER
 app.listen(PORT, () => {
