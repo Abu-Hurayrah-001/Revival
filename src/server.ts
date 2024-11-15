@@ -46,7 +46,7 @@ app.use("/api/sign-up", signUpRouter);
 app.use("/api/sign-in", signInRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
-    res.send("One simply does not hit the backend route on accident!!");
+    res.send("One simply does not hit the backend-route on accident!!");
     return;
 });
 

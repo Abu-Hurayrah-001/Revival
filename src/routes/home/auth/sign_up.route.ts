@@ -13,7 +13,7 @@ signUpRouter.post("/", asyncErrorHandler(async(req: Request, res: Response, next
     if (!email || !password) {
         res.status(400).json({
             success: false,
-            message: "Credential(s) missing"
+            message: "Credential(s) missing, Champ!!"
         });
 
         return;

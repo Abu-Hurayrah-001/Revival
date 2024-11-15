@@ -12,7 +12,7 @@ signInRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
     if (!email || !password) {
         res.status(400).json({
             success: false,
-            message: "Credential(s) missing"
+            message: "Credential(s) missing, Genius!!"
         });
 
         return;
@@ -40,7 +40,7 @@ signInRouter.post("/", (req: Request, res: Response, next: NextFunction) => {
 
             res.status(200).json({
                 success: true,
-                message: "Signed in successfully",
+                message: "Welcome home, Dear!!",
                 user: {
                     id: (user as IUser)._id,
                     email: (user as IUser).email,
