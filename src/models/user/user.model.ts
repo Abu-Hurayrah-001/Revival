@@ -6,8 +6,12 @@ import bcrypt from 'bcryptjs';
 export interface IUser extends Document {
     email: string;
     password: string;
+    isTeacher?: boolean;
+    isAdmin?: boolean;
+    isMentor?: boolean;
+    courseIds?: Array<string>;
     comparePassword(password: string): Promise<boolean>;
-}
+};
 
 const userSchema: Schema<IUser> = new Schema({
     email: {
@@ -20,13 +24,33 @@ const userSchema: Schema<IUser> = new Schema({
         required: true,
         select: false,
     },
-}, {timestamps: true});
+    isTeacher: {
+        type: Boolean,
+        required:false,
+        default: false,        
+    },
+    isAdmin: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    isMentor: {
+        type: Boolean,
+        required: false,
+        default: false,
+    },
+    courseIds: {
+        type: [String],
+        required: false,
+        default: [],
+    },
+}, { timestamps: true });
 
 // HASHING THE PASSWORD BEFORE SAVING THE USER
 userSchema.pre<IUser>("save", async function(next) {
-    if (!this.isModified("password")) {
+    if (!this.isModified("password") || !this.password) {
         return next();
-    }
+    };
 
     //try-block
     try {
@@ -35,13 +59,20 @@ userSchema.pre<IUser>("save", async function(next) {
         next();
     //catch-block
     } catch (error: any) {
-        next(error)
-    }
+        next(error);
+    };
 });
 
 //PASSWORD COMPARISON METHOD
 userSchema.methods.comparePassword = async function(password: string): Promise<boolean> {
-    return await bcrypt.compare(password, this.password);
+    //try-block
+    try {
+        return await bcrypt.compare(password, this.password);
+    //catch-block
+    } catch (error: any) {
+        console.error("Error comparing password: ", error);
+        return false;
+    };
 };
 
 export default mongoose.model<IUser>("User", userSchema);
