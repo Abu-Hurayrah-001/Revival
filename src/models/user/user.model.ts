@@ -2,7 +2,7 @@
 import mongoose, { Schema, Document } from "mongoose";
 import bcrypt from 'bcryptjs';
 
-// USER MODEL
+// USER INTERFACE
 export interface IUser extends Document {
     email: string;
     password: string;
@@ -13,36 +13,37 @@ export interface IUser extends Document {
     comparePassword(password: string): Promise<boolean>;
 };
 
+// USER SCHEMA
 const userSchema: Schema<IUser> = new Schema({
     email: {
         type: String,
-        required: true,
         unique: true,
+        required: true,
     },
     password: {
         type: String,
-        required: true,
         select: false,
+        required: true,
     },
     isTeacher: {
         type: Boolean,
-        required:false,
-        default: false,        
+        default: false,
+        required:false,        
     },
     isAdmin: {
         type: Boolean,
-        required: false,
         default: false,
+        required: false,
     },
     isMentor: {
         type: Boolean,
-        required: false,
         default: false,
+        required: false,
     },
     courseIds: {
         type: [String],
-        required: false,
         default: [],
+        required: false,
     },
 }, { timestamps: true });
 
@@ -75,4 +76,5 @@ userSchema.methods.comparePassword = async function(password: string): Promise<b
     };
 };
 
+//EXPORT
 export default mongoose.model<IUser>("User", userSchema);
