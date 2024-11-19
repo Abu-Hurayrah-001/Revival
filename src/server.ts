@@ -7,8 +7,8 @@ import helmet from "helmet";
 import homeRouter from "./routes/home/home.route";
 import connectDB from "./utils/connectDB";
 import errorHandler from "./middlewares/error_handling/erroHandler.middleware";
-import signUpRouter from "./routes/home/auth/sign_up.route";
-import signInRouter from "./routes/home/auth/sign_in.route";
+import signUpRouter from "./routes/auth/signUp.route";
+import signInRouter from "./routes/auth/signIn.route";
 import { initializePassport } from "./config/passportConfig";
 import passport from "passport";
 import session from "express-session";
@@ -16,6 +16,7 @@ import rateLimit from "express-rate-limit";
 import { sessionConfig } from "./config/sessionConfig";
 import { sessionRefresher } from "./utils/sessionRefresher";
 import { corsConfig } from "./config/corsConfig";
+import createCourseRouter from "./routes/courses/createCourse.route";
 
 // INITIALIZING STUFF
 dotenv.config();
@@ -44,6 +45,7 @@ app.use(errorHandler);
 app.use("/", homeRouter);
 app.use("/api/sign-up", signUpRouter);
 app.use("/api/sign-in", signInRouter);
+app.use("/api/create-course", createCourseRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.send("One simply does not hit the backend-route on accident!!");
