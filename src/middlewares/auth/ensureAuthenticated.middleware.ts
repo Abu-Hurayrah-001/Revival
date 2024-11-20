@@ -1,14 +1,15 @@
 // IMPORTS
 import { Request, Response, NextFunction } from "express";
 
-// CHECK IF PREVIOUSLY AUTHENTICATED
+// VERIFY IF PREVIOUSLY AUTHENTICATED
 export const ensureAuthenticated = (req: Request, res: Response, next: NextFunction) => {
     if (req.isAuthenticated()) {
-        return next();
+        next();
+        return;
     };
 
     res.status(401).json({
         success: false,
-        message: "You're not logged in buddy!!",
+        message: "You're not logged in, buddy!!",
     });
 };

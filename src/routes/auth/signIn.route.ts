@@ -20,7 +20,7 @@ signInRouter.post(
             return;
         };
 
-        passport.authenticate("local", (err: Error | null, user: Express.User, info: { message?: string }) => {
+        passport.authenticate("local", (err: Error | null, user: IUser, info: { message?: string }) => {
             if (err) {
                 next(err);
                 return;
@@ -37,16 +37,17 @@ signInRouter.post(
 
             req.logIn(user, (logInError: Error | null) => {
                 if (logInError) {
-                    return next(logInError);
+                    next(logInError);
+                    return;
                 };
+
+                const userObject = user.toObject(); // converting-mongoose-document-to-plain-object-for-bug-free-modification
+                delete userObject.password;
 
                 res.status(200).json({
                     success: true,
                     message: "Welcome home, Dear!!",
-                    user: {
-                        id: (user as IUser)._id,
-                        email: (user as IUser).email,
-                    },
+                    user: userObject,
                 });
 
                 return;

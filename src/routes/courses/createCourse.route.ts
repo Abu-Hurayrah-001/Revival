@@ -2,8 +2,8 @@
 import express, { Request, Response, NextFunction } from "express";
 import asyncErrorHandler from "../../middlewares/error_handling/asyncErrorHandler.middelware";
 import Course from "../../models/course/course.model";
-import passport from "passport";
 import { ensureAuthenticated } from "../../middlewares/auth/ensureAuthenticated.middleware";
+import { ensureAdmin } from "../../middlewares/roles/ensureAdmin.middleware";
 
 // CREATE COURSE
 const createCourseRouter = express.Router();
@@ -11,6 +11,7 @@ const createCourseRouter = express.Router();
 createCourseRouter.post(
     "/",
     ensureAuthenticated,
+    ensureAdmin,
     asyncErrorHandler(async(req: Request, res: Response, next: NextFunction): Promise<void> => {
         const { title, description, modules, categories = [], studentIDs = [] } = req.body;
 
