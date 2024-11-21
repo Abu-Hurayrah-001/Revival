@@ -17,6 +17,7 @@ import { sessionConfig } from "./config/sessionConfig";
 import { sessionRefresher } from "./utils/sessionRefresher";
 import { corsConfig } from "./config/corsConfig";
 import createCourseRouter from "./routes/courses/createCourse.route";
+import signOutRouter from "./routes/auth/signOut.route";
 
 // INITIALIZING STUFF
 dotenv.config();
@@ -45,6 +46,7 @@ app.use(errorHandler);
 app.use("/", homeRouter);
 app.use("/api/sign-up", signUpRouter);
 app.use("/api/sign-in", signInRouter);
+app.use("/api/sign-out", signOutRouter);
 app.use("/api/create-course", createCourseRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
