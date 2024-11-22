@@ -2,23 +2,47 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // INTERFACES
-export interface IModule {
+export interface IComment {
+    userId: string;
+    text: string;
+    timestamp: Date;
+}
+
+export interface IClass {
     title: string;
     description: string;
     videoUrl?: string; // because-sometimes-a-teacher-might-just-want-to-upload-notes
     resourceUrls?: Array<string>;
+    comments?: IComment[];
 };
 
 export interface ICourse extends Document {
     title: string;
     description: string;
-    modules: IModule[];
+    thumbnailUrl?: string;
+    classes: IClass[];
     categories?: Array<string>;
     studentIDs?: Array<string>;
+    rating: number;
 };
 
 // SCHEMAS
-const moduleSchema = new Schema<IModule>({
+const commentSchema = new Schema<IComment>({
+    userId: {
+        type: String,
+        required: true,
+    },
+    text: {
+        type: String,
+        required: true,
+    },
+    timestamp: {
+        type: Date,
+        required: true
+    },
+}, { timestamps: true });
+
+const classSchema = new Schema<IClass>({
     title: {
         type: String,
         required: true,
@@ -36,6 +60,11 @@ const moduleSchema = new Schema<IModule>({
         default: [],
         required: false,
     },
+    comments: {
+        type: [commentSchema],
+        default: [],
+        required: false,
+    },
 }, { timestamps: true });
 
 const courseSchema = new Schema<ICourse>({
@@ -47,8 +76,12 @@ const courseSchema = new Schema<ICourse>({
         type: String,
         required: true,
     },
-    modules: {
-        type: [moduleSchema],
+    thumbnailUrl: {
+        type: String,
+        required: false,
+    },
+    classes: {
+        type: [classSchema],
         default: [],
         required: true,
     },
@@ -62,6 +95,11 @@ const courseSchema = new Schema<ICourse>({
         default: [],
         required: false,
     },
+    rating: {
+        type: Number,
+        required: false,
+        default: 0,
+    }
 }, { timestamps: true });
 
 //EXPORT
