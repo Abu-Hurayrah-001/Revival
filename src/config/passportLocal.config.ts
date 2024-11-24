@@ -4,6 +4,22 @@ import User, { IUser } from "../models/user/user.model";
 import passport, { PassportStatic } from "passport";
 
 //PASSPORT.JS CONFIGURATION
+passport.serializeUser((user, done) => {
+	const userId = (user as IUser)._id; // this mess is necessary becuase a simple "user._id" is not working for some reason I am unable to understand 
+  	done(null, userId);
+});
+
+passport.deserializeUser(async(id, done) => {
+	// try-block
+	try {
+		const user = await User.findById(id);
+		done(null, user || null);
+	// catch-block
+	} catch (error: any) {
+		done(error);
+  	};
+});
+
 const localOptions = {
     usernameField: "email",
     passwordField: "password",
@@ -35,20 +51,4 @@ export const initializePassport = (passport: PassportStatic) => {
             return;
         };
     }));
-
-    passport.serializeUser((user, done) => {
-      	const userId = (user as IUser)._id; // this mess is necessary becuase a simple "user._id" is not working for some reason I am unable to understand 
-        done(null, userId);
-    });
-
-	passport.deserializeUser(async(id, done) => {
-		// try-block
-		try {
-			const user = await User.findById(id);
-			done(null, user || null);
-		// catch-block
-		} catch (error: any) {
-			done(error);
-		};
-	});
 };

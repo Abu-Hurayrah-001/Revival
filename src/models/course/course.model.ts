@@ -2,71 +2,55 @@
 import mongoose, { Schema, Document } from "mongoose";
 
 // INTERFACES
-export interface IClass {
+export interface ICourseCard extends Document {
     title: string;
-    description: string;
-    videoUrl?: string; // because-sometimes-a-teacher-might-just-want-to-upload-notes
-    resourceUrls?: Array<string>;
+    thumbnailUrl?: string;
+    forWhom: string;
+    startsOn: string;
+    endsOn: string;
+    originalPrice: number;
+    discountedPrice?: number;
 };
 
-export interface ICourse extends Document {
+export interface ICourseDescription extends Document {
     title: string;
-    description: string;
-    thumbnailUrl?: string;
-    classes: IClass[];
-    categories?: Array<string>;
-    studentIDs?: Array<string>;
+    
 };
 
 // SCHEMAS
-const classSchema = new Schema<IClass>({
+const courseCardSchema = new Schema<ICourseCard>({
     title: {
-        type: String,
-        required: true,
-    },
-    description: {
-        type: String,
-        required: true,
-    },
-    videoUrl: {
-        type: String,
-        required: false,
-    },
-    resourceUrls: {
-        type: [String],
-        default: [],
-        required: false,
-    },
-}, { timestamps: true });
-
-const courseSchema = new Schema<ICourse>({
-    title: {
-        type: String,
-        required: true,
-    },
-    description: {
         type: String,
         required: true,
     },
     thumbnailUrl: {
         type: String,
-        required: false,
+        required: false, 
     },
-    classes: {
-        type: [classSchema],
-        default: [],
+    forWhom: {
+        type: String,
         required: true,
     },
-    categories: {
-        type: [String],
-        default: [],
+    startsOn: {
+        type: String,
+        required: true,
+    },
+    endsOn: {
+        type: String,
+        required: true,
+    },
+    originalPrice: {
+        type: Number,
+        required: true,
+    },
+    discountedPrice: {
+        type: Number,
         required: false,
     },
-    studentIDs: {
-        type: [String],
-        default: [],
-        required: false,
-    },
+});
+
+const courseDescriptionSchema = new Schema<ICourseDescription>({
+    
 }, { timestamps: true });
 
 //EXPORT

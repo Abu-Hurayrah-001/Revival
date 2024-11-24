@@ -2,20 +2,20 @@
 import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import { rateLimiterConfig } from "./config/rateLimiterConfig";
+import { rateLimiterConfig } from "./config/rateLimiter.config";
 import helmet from "helmet";
 import homeRouter from "./routes/home/home.route";
 import connectDB from "./utils/connectDB";
 import errorHandler from "./middlewares/error_handling/erroHandler.middleware";
 import signUpRouter from "./routes/auth/signUp.route";
 import signInRouter from "./routes/auth/signIn.route";
-import { initializePassport } from "./config/passportConfig";
+import { initializePassport } from "./config/passportLocal.config";
 import passport from "passport";
 import session from "express-session";
 import rateLimit from "express-rate-limit";
-import { sessionConfig } from "./config/sessionConfig";
+import { sessionConfig } from "./config/session.config";
 import { sessionRefresher } from "./utils/sessionRefresher";
-import { corsConfig } from "./config/corsConfig";
+import { corsConfig } from "./config/cors.config";
 import createCourseRouter from "./routes/courses/createCourse.route";
 import signOutRouter from "./routes/auth/signOut.route";
 
