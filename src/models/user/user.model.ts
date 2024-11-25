@@ -4,17 +4,24 @@ import bcrypt from 'bcryptjs';
 
 // USER INTERFACE
 export interface IUser extends Document {
+    username: string;
     email: string;
     password: string;
     isTeacher?: boolean;
     isAdmin?: boolean;
     isMentor?: boolean;
     courseIds?: Array<string>;
+    googleId: string;
+    discordId: string;
     comparePassword(password: string): Promise<boolean>;
 };
 
 // USER SCHEMA
 const userSchema: Schema<IUser> = new Schema({
+    username: {
+        type: String,
+        required: true,
+    },
     email: {
         type: String,
         unique: true,
@@ -43,6 +50,14 @@ const userSchema: Schema<IUser> = new Schema({
     courseIds: {
         type: [String],
         default: [],
+        required: false,
+    },
+    googleId: {
+        type: String,
+        required: false,
+    },
+    discordId: {
+        type: String,
         required: false,
     },
 }, { timestamps: true });
