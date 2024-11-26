@@ -20,6 +20,12 @@ passport.deserializeUser(async(id, done) => {
     };
 });
 
+const generateRandomHashedPassword = async() => {
+    const randomPassword = Math.random().toString(36).slice(-8);
+    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+    return hashedPassword;
+};
+
 // GOOGLE O-AUTH STRATEGY
 passport.use(new GoogleStrategy(
     {
@@ -45,14 +51,59 @@ passport.use(new GoogleStrategy(
                     await user.save();
                 };
             } else {
-                const randomPassword = Math.random().toString(36).slice(-8);
-                const hashedPassword = await bcrypt.hash(randomPassword, 10);
+                const hashedPassword = await generateRandomHashedPassword();
 
                 user = await User.create({
                     username: profile.displayName || "Google User",
                     email,
                     password: hashedPassword,
                     googleId: profile.id,
+                });
+                // TODO: SEND THE PASSWORD TO USER VIA EMAIL
+            };
+
+            done(null, user);
+            return;
+        // catch-part
+        } catch (error: any) {
+            done(error);
+            return;
+        };
+    },
+));
+
+// DISCORD O-AUTH STRATEGY
+passport.use(new DiscordStrategy(
+    {
+        clientID: process.env.DISCORD_CLIENT_ID || "",
+        clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
+        callbackURL: "/api/auth/discord/callback",
+    },
+    async(accessToken, refreshToken, profile, done) => {
+        // try-part
+        try {
+            const email = profile.email;
+
+            if (!email) {
+                done(null, false, { message: "Discord account has no such email associated!!" });
+                return;
+            };
+
+            let user = await User.findOne({ email });
+
+            if (user) {
+                if (!user.discordId) {
+                    user.discordId = profile.id;
+                    await user.save();
+                };
+            } else {
+                const hashedPassword = await generateRandomHashedPassword();
+
+                user = await User.create({
+                    username: profile.username || "Discord User",
+                    email,
+                    password: hashedPassword,
+                    discordId: profile.id,
                 });
                 // TODO: SEND THE PASSWORD TO USER VIA EMAIL
             };

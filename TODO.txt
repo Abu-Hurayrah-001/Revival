@@ -5,3 +5,5 @@
 3. Fix random Mongo DB error when connecting (Error connecting to MongoDB: querySrv EREFUSED _mongodb._tcp.cluster0.8mw4l.mongodb.net)
 
 4. Send the "randomPassword" created for first time OAuth users to their email.
+
+5. Implement redirection from frontend after credentials and OAuth successfull login
