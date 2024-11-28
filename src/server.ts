@@ -18,6 +18,8 @@ import { sessionRefresher } from "./utils/sessionRefresher";
 import { corsConfig } from "./config/cors.config";
 import createCourseRouter from "./routes/courses/createCourse.route";
 import signOutRouter from "./routes/auth/signOut.route";
+import googleOAuthRouter from "./routes/auth/OAuth/googleOAuth.route";
+import discordOAuthRouter from "./routes/auth/OAuth/discordOAuth.route";
 
 // INITIALIZING STUFF
 dotenv.config();
@@ -46,6 +48,8 @@ app.use(errorHandler);
 app.use("/", homeRouter);
 app.use("/api/sign-up", signUpRouter);
 app.use("/api/sign-in", signInRouter);
+app.use("/api/oauth/google", googleOAuthRouter);
+app.use("/api/oauth/discord", discordOAuthRouter);
 app.use("/api/sign-out", signOutRouter);
 app.use("/api/create-course", createCourseRouter);
 

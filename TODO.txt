@@ -7,3 +7,5 @@
 4. Send the "randomPassword" created for first time OAuth users to their email.
 
 5. Implement redirection from frontend after credentials and OAuth successfull login
+
+6. Research on the performance methods used for "Harappa.com" (It's superfast man!!)
