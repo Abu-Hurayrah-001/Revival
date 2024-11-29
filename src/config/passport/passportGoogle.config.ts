@@ -1,11 +1,10 @@
 // IMPORTS
 import passport, { PassportStatic } from "passport";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
-import { Strategy as DiscordStrategy } from "passport-discord";
-import User, { IUser} from "../models/user/user.model";
+import User, { IUser} from "../../models/user/user.model";
 import bcrypt from "bcryptjs";
 
-// STERILIZE AND DESTERILIZE USER
+// GOOGLE O-AUTH STRATEGY
 passport.serializeUser((user, done) => {
     done(null, (user as IUser)._id);
 });
@@ -26,13 +25,12 @@ const generateRandomHashedPassword = async() => {
     return hashedPassword;
 };
 
-// GOOGLE O-AUTH STRATEGY
 export const initializeGoogleOAuthPassport = (passport: PassportStatic) => {
     passport.use(new GoogleStrategy(
         {
             clientID: process.env.GOOGLE_CLIENT_ID || "",
             clientSecret: process.env.GOOGLE_CLIENT_SECRET || "",
-            callbackURL: "/api/auth/google/callback",
+            callbackURL: `${process.env.FRONTEND_URL}/api/auth/google/callback`,
         },
         async(accessToken, refreshToken, profile, done) => {
             // try-part
@@ -59,54 +57,6 @@ export const initializeGoogleOAuthPassport = (passport: PassportStatic) => {
                         email,
                         password: hashedPassword,
                         googleId: profile.id,
-                    });
-                    // TODO: SEND THE PASSWORD TO USER VIA EMAIL
-                };
-    
-                done(null, user);
-                return;
-            // catch-part
-            } catch (error: any) {
-                done(error);
-                return;
-            };
-        },
-    ));
-};
-
-// DISCORD O-AUTH STRATEGY
-export const initializeDiscordOAuthPassport = (passport: PassportStatic) => {
-    passport.use(new DiscordStrategy(
-        {
-            clientID: process.env.DISCORD_CLIENT_ID || "",
-            clientSecret: process.env.DISCORD_CLIENT_SECRET || "",
-            callbackURL: "/api/auth/discord/callback",
-        },
-        async(accessToken, refreshToken, profile, done) => {
-            // try-part
-            try {
-                const email = profile.email;
-    
-                if (!email) {
-                    done(null, false, { message: "Discord account has no such email associated!!" });
-                    return;
-                };
-    
-                let user = await User.findOne({ email });
-    
-                if (user) {
-                    if (!user.discordId) {
-                        user.discordId = profile.id;
-                        await user.save();
-                    };
-                } else {
-                    const hashedPassword = await generateRandomHashedPassword();
-    
-                    user = await User.create({
-                        username: profile.username || "Discord User",
-                        email,
-                        password: hashedPassword,
-                        discordId: profile.id,
                     });
                     // TODO: SEND THE PASSWORD TO USER VIA EMAIL
                 };

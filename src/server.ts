@@ -9,7 +9,9 @@ import connectDB from "./utils/connectDB";
 import errorHandler from "./middlewares/error_handling/erroHandler.middleware";
 import signUpRouter from "./routes/auth/signUp.route";
 import signInRouter from "./routes/auth/signIn.route";
-import { initializePassport } from "./config/passportLocal.config";
+import { initializePassport } from "./config/passport/passportLocal.config";
+import { initializeDiscordOAuthPassport } from "./config/passport/passportDiscord.config";
+import { initializeGoogleOAuthPassport } from "./config/passport/passportGoogle.config";
 import passport from "passport";
 import session from "express-session";
 import rateLimit from "express-rate-limit";
@@ -24,6 +26,8 @@ import discordOAuthRouter from "./routes/auth/OAuth/discordOAuth.route";
 // INITIALIZING STUFF
 dotenv.config();
 initializePassport(passport);
+initializeGoogleOAuthPassport(passport);
+initializeDiscordOAuthPassport(passport);
 
 // CONSTS. AND VARS.
 const app = express();

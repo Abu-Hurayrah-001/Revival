@@ -1,6 +1,6 @@
 //IMPORTS
 import { Strategy as LocalStrategy } from "passport-local";
-import User, { IUser } from "../models/user/user.model";
+import User, { IUser } from "../../models/user/user.model";
 import passport, { PassportStatic } from "passport";
 
 //PASSPORT.JS CONFIGURATION
