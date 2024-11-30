@@ -22,6 +22,8 @@ import createCourseRouter from "./routes/courses/createCourse.route";
 import signOutRouter from "./routes/auth/signOut.route";
 import googleOAuthRouter from "./routes/auth/OAuth/googleOAuth.route";
 import discordOAuthRouter from "./routes/auth/OAuth/discordOAuth.route";
+import googleOAuthCallbackRouter from "./routes/auth/OAuth/googleOAuthCallback.route";
+import discordOAuthCallbackRouter from "./routes/auth/OAuth/discordOAuthCallback.route";
 
 // INITIALIZING STUFF
 dotenv.config();
@@ -54,6 +56,8 @@ app.use("/api/sign-up", signUpRouter);
 app.use("/api/sign-in", signInRouter);
 app.use("/api/oauth/google", googleOAuthRouter);
 app.use("/api/oauth/discord", discordOAuthRouter);
+app.use("/api/oauth/google/callback", googleOAuthCallbackRouter);
+app.use("/api/oauth/discord/callback", discordOAuthCallbackRouter);
 app.use("/api/sign-out", signOutRouter);
 app.use("/api/create-course", createCourseRouter);
 
