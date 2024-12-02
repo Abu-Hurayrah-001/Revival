@@ -70,7 +70,7 @@ const courseSchema = new Schema<ICourse>({
     },
     thumbnailUrl: {
         type: String,
-        required: true, 
+        required: true,
     },
     introVideoUrl: {
         type: String,
