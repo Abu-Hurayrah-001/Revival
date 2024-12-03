@@ -3,14 +3,11 @@ import express, { Request, Response } from "express";
 import passport from "passport";
 import { IUser } from "../../../models/user/user.model";
 
-// GOOGLE O-AUTH CALLBACK
-interface AuthenticationRequest extends Request {
-    user?: IUser;
-};
+// INITIATE GOOGLE OAUTH LOGIN
+export const googleOAuthLogin = passport.authenticate("google", { scope: ["profile", "email"] });
 
-const googleOAuthCallbackRouter = express.Router();
-
-googleOAuthCallbackRouter.get("/", passport.authenticate("google", { session: true }, (req: AuthenticationRequest, res: Response) => {
+// CALLBACK HANDLER AFTER GOOGLE REDIRECTS
+export const googleOAuthCallback = (req: Request, res: Response) => {
     if (req.user) {
         res.status(200).json({
             success: true,
@@ -23,6 +20,4 @@ googleOAuthCallbackRouter.get("/", passport.authenticate("google", { session: tr
             message: "Authentication failed or user data missing",
         });
     };
-}));
-
-export default googleOAuthCallbackRouter;
+};

@@ -1,16 +1,13 @@
 // IMPORTS
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import passport from "passport";
 import { IUser } from "../../../models/user/user.model";
 
-// DISCORD O-AUTH CALLBACK
-interface AuthenticationRequest extends Request {
-    user?: IUser;
-};
+// INITIATE DISCORD OAUTH LOGIN
+export const discordOAuthLogin = passport.authenticate("discord", { scope: ["identify", "email"] });
 
-const discordOAuthCallbackRouter = express.Router();
-
-discordOAuthCallbackRouter.get("/", passport.authenticate("discord", { session: true }, (req: AuthenticationRequest, res: Response) => {
+// CALLBACK HANDLER AFTER discord REDIRECTS
+export const discordOAuthCallback = (req: Request, res: Response) => {
     if (req.user) {
         res.status(200).json({
             success: true,
@@ -23,6 +20,4 @@ discordOAuthCallbackRouter.get("/", passport.authenticate("discord", { session: 
             message: "Authentication failed or user data missing",
         });
     };
-}));
-
-export default discordOAuthCallbackRouter;
+};

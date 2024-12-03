@@ -7,9 +7,7 @@ export interface IUser extends Document {
     username: string;
     email: string;
     password: string;
-    isTeacher?: boolean;
     isAdmin?: boolean;
-    isMentor?: boolean;
     courseIds?: Array<string>;
     googleId: string;
     discordId: string;
@@ -32,17 +30,7 @@ const userSchema: Schema<IUser> = new Schema({
         select: false,
         required: true,
     },
-    isTeacher: {
-        type: Boolean,
-        default: false,
-        required:false,        
-    },
     isAdmin: {
-        type: Boolean,
-        default: false,
-        required: false,
-    },
-    isMentor: {
         type: Boolean,
         default: false,
         required: false,

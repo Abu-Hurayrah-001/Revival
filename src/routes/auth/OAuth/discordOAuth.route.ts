@@ -1,10 +1,10 @@
 // IMPORTS
 import express from "express";
-import passport from "passport";
+import { discordOAuthCallback, discordOAuthLogin } from "../../../controllers/auth/oAuth/discordOAuth.controller";
 
-// DISCORD O-AUTH
-
+// DISCORD O-AUTH ROUTER
 const discordOAuthRouter = express.Router();
-discordOAuthRouter.get("/", passport.authenticate("discord", { scope: ["identify", "email"] }));
+discordOAuthRouter.get("/discord", discordOAuthLogin);
+discordOAuthRouter.get("/discord/callback", discordOAuthCallback);
 
 export default discordOAuthRouter;
