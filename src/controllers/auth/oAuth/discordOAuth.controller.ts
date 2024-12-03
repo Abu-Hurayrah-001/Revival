@@ -4,10 +4,10 @@ import passport from "passport";
 import { IUser } from "../../../models/user/user.model";
 
 // INITIATE DISCORD OAUTH LOGIN
-export const discordOAuthLogin = passport.authenticate("discord", { scope: ["identify", "email"] });
+export const handleDiscordOAuthLogin = passport.authenticate("discord", { scope: ["identify", "email"] });
 
 // CALLBACK HANDLER AFTER discord REDIRECTS
-export const discordOAuthCallback = (req: Request, res: Response) => {
+export const handleDiscordOAuthCallback = (req: Request, res: Response) => {
     if (req.user) {
         res.status(200).json({
             success: true,
