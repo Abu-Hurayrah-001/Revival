@@ -2,9 +2,9 @@
 import express, { NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import connectDB from "./utils/connectDB";
-import { initializePassport } from "./config/passport/passportLocal.config";
-import { initializeDiscordOAuthPassport } from "./config/passport/passportDiscord.config";
-import { initializeGoogleOAuthPassport } from "./config/passport/passportGoogle.config";
+import { initializePassport } from "./configs/passport/passportLocal.config";
+import { initializeDiscordOAuthPassport } from "./configs/passport/passportDiscord.config";
+import { initializeGoogleOAuthPassport } from "./configs/passport/passportGoogle.config";
 import passport from "passport";
 import { middlewares } from "./middlewares";
 import { routes } from "./routes";

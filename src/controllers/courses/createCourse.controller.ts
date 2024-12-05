@@ -1,30 +1,52 @@
 // IMPORTS
 import { NextFunction, Request, Response } from "express";
 import asyncErrorHandler from "../../middlewares/error_handling/asyncErrorHandler.middelware";
-import Course from "../../models/course/course.model";
+import Course, { ICourse } from "../../models/course/course.model";
+import cloudinary from "../../configs/cloudinary.config";
 
 // COURSE CREATION CONTROLLER
 export const handleCourseCreation = asyncErrorHandler(async(req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { title, description, modules, categories = [], studentIDs = [] } = req.body;
+    const { title, batchIncludes, description, thumbnail, introVideoUrl, forWhom, classes = [], FAQ = [], originalPrice, discountedPrice, category = [], feedbacks = [], studentIDs = [] } = req.body as any;
 
-    if (!title || !description || !modules) {
+    if (!title || !batchIncludes || !description || !thumbnail || !introVideoUrl || !forWhom || !classes || !FAQ || !originalPrice || !category) {
         res.status(400).json({
             success: false,
-            message: "At least one of the following is missing, my man : 'Title', 'Description' or 'Modules'"
+            message: "Insufficient data, my man!!",
         });
 
         return;
     };
 
-    const course = new Course({
+    let thumbnailUrl: string = "";
+    
+    const uploadedThumbnail: any = await cloudinary.uploader.upload(thumbnail, {
+        folder: "courses/thumbnails",
+        transformation: [{
+            width: 400,
+            height: 400,
+            crop: "fill",
+        }],
+    });
+
+    thumbnailUrl = uploadedThumbnail.secure_url;
+
+    const course: ICourse = new Course({
         title,
+        batchIncludes,
         description,
-        modules,
-        categories,
+        thumbnailUrl,
+        introVideoUrl,
+        forWhom,
+        classes,
+        FAQ,
+        originalPrice,
+        discountedPrice,
+        category,
+        feedbacks,
         studentIDs,
     });
 
-    const courseCopy = await course.save();
+    const courseCopy: ICourse = await course.save();
 
     res.status(201).json({
         success: true,
@@ -33,4 +55,4 @@ export const handleCourseCreation = asyncErrorHandler(async(req: Request, res: R
     });
 
     return;
-})
+});

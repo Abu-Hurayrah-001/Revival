@@ -22,10 +22,12 @@ export interface ICourse extends Document {
     thumbnailUrl: string;
     introVideoUrl: string;
     forWhom: string;
+    classes: [IClasses];
     originalPrice: number;
     discountedPrice?: number;
-    classes: [IClasses];
+    category: [string];
     feedbacks?: [string];
+    studentIDs: [string];
 };
 
 // SCHEMAS
@@ -96,7 +98,15 @@ const courseSchema = new Schema<ICourse>({
         type: Number,
         required: false,
     },
+    category: {
+        type: [String],
+        required: true,
+    },
     feedbacks: {
+        type: [String],
+        required: false,
+    },
+    studentIDs: {
         type: [String],
         required: false,
     },
