@@ -5,7 +5,7 @@ import { IUser } from "../../../models/user/user.model";
 
 // SIGN-IN CONTROLLER
 export const handleSignIn = (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body;
+    const { email, password } = req.body as any;
 
     if (!email || !password) {
         res.status(400).json({
@@ -37,7 +37,7 @@ export const handleSignIn = (req: Request, res: Response, next: NextFunction) =>
                 return;
             };
 
-            const userObject = user.toObject(); // converting-mongoose-document-to-plain-object-for-bug-free-modification
+            const userObject: any = user.toObject(); // converting-mongoose-document-to-plain-object-for-bug-free-modification
             delete userObject.password;
 
             res.status(200).json({

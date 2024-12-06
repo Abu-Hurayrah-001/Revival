@@ -19,9 +19,9 @@ passport.deserializeUser(async(id, done) => {
     };
 });
 
-const generateRandomHashedPassword = async() => {
-    const randomPassword = Math.random().toString(36).slice(-8);
-    const hashedPassword = await bcrypt.hash(randomPassword, 10);
+const generateRandomHashedPassword = async(): Promise<string> => {
+    const randomPassword: string = Math.random().toString(36).slice(-8);
+    const hashedPassword: string = await bcrypt.hash(randomPassword, 10);
     return hashedPassword;
 };
 
@@ -35,14 +35,14 @@ export const initializeGoogleOAuthPassport = (passport: PassportStatic) => {
         async(accessToken, refreshToken, profile, done) => {
             // try-part
             try {
-                const email = profile.emails?.[0]?.value;
+                const email: string | undefined = profile.emails?.[0]?.value;
     
                 if (!email) {
                     done(null, false, { message: "Google account has no such email associated!!" });
                     return;
                 };
     
-                let user = await User.findOne({ email });
+                let user: IUser | null = await User.findOne({ email });
     
                 if (user) {
                     if (!user.googleId) {
@@ -50,7 +50,7 @@ export const initializeGoogleOAuthPassport = (passport: PassportStatic) => {
                         await user.save();
                     };
                 } else {
-                    const hashedPassword = await generateRandomHashedPassword();
+                    const hashedPassword: string = await generateRandomHashedPassword();
     
                     user = await User.create({
                         username: profile.displayName || "Google User",

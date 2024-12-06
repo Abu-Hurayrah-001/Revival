@@ -1,10 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import asyncErrorHandler from "../../../middlewares/error_handling/asyncErrorHandler.middelware";
-import User from "../../../models/user/user.model";
+import User, { IUser } from "../../../models/user/user.model";
 
 export const handleSignUp = asyncErrorHandler(async(req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { username, email, password } = req.body;
-    const existingUser = await User.findOne({ email });
+    const { username, email, password } = req.body as any;
+    const existingUser: boolean | null = await User.findOne({ email });
 
     if (!username) {
         res.status(400).json({
@@ -33,7 +33,7 @@ export const handleSignUp = asyncErrorHandler(async(req: Request, res: Response,
         return;
     };
 
-    const user = new User({ username, email, password });
+    const user: IUser = new User({ username, email, password });
     await user.save();
 
     res.status(201).json({
