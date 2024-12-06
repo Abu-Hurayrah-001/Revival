@@ -4,12 +4,12 @@ import User, { IUser } from "../../models/user/user.model";
 import passport, { PassportStatic } from "passport";
 
 //PASSPORT.JS CONFIGURATION
-passport.serializeUser((user, done) => { // skipping types because it will make it look too complex
+passport.serializeUser((user: any, done: any) => { // skipping types because it will make it look too complex
 	const userId = (user as IUser)._id; // this mess is necessary becuase a simple "user._id" is not working for some reason I am unable to understand 
   	done(null, userId);
 });
 
-passport.deserializeUser(async(id, done) => {
+passport.deserializeUser(async(id: string, done: any) => {
 	// try-block
 	try {
 		const user: IUser | null = await User.findById(id);

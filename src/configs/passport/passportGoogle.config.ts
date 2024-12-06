@@ -5,13 +5,13 @@ import User, { IUser} from "../../models/user/user.model";
 import bcrypt from "bcryptjs";
 
 // GOOGLE O-AUTH STRATEGY
-passport.serializeUser((user, done) => {
+passport.serializeUser((user: any, done: any) => {
     done(null, (user as IUser)._id);
 });
 
-passport.deserializeUser(async(id, done) => {
+passport.deserializeUser(async(id: string, done: any) => {
     try {
-        const user = await User.findById(id);
+        const user: IUser | null = await User.findById(id);
         done(null, user || null);
 
     } catch (error: any) {
