@@ -1,9 +1,9 @@
 // IMPORTS
-import express from "express";
+import express, { Router } from "express";
 import { handleSignIn } from "../../controllers/auth/credentials/signIn.controller";
 
 // SIGN-IN
-const signInRouter = express.Router();
+const signInRouter: Router = express.Router();
 signInRouter.post("/", handleSignIn);
 
 export default signInRouter;

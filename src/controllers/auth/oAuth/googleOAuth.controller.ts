@@ -1,7 +1,6 @@
 // IMPORTS
 import express, { Request, Response } from "express";
 import passport from "passport";
-import { IUser } from "../../../models/user/user.model";
 
 // INITIATE GOOGLE OAUTH LOGIN
 export const handleGoogleOAuthLogin = passport.authenticate("google", { scope: ["profile", "email"] });

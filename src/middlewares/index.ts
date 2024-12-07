@@ -1,5 +1,5 @@
 // IMPORTS
-import express from "express";
+import express, { ErrorRequestHandler, RequestHandler } from "express";
 import cors from "cors";
 import session from "express-session";
 import rateLimit from "express-rate-limit";
@@ -12,7 +12,7 @@ import passport from "passport";
 import errorHandler from "./error_handling/erroHandler.middleware";
 
 // MIDDLEWARES
-export const middlewares = [
+export const middlewares: Array<RequestHandler | ErrorRequestHandler> = [
     cors(corsConfig),
     helmet(),
     express.json(),

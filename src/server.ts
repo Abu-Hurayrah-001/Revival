@@ -1,5 +1,5 @@
 // IMPORTS
-import express, { NextFunction, Request, Response } from "express";
+import express, { Express, NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import connectDB from "./utils/connectDB";
 import { initializePassport } from "./configs/passport/passportLocal.config";
@@ -16,7 +16,7 @@ initializeGoogleOAuthPassport(passport);
 initializeDiscordOAuthPassport(passport);
 
 // CONSTS. AND VARS.
-const app = express();
+const app: Express = express();
 const PORT: number = Number(process.env.PORT) || 8000;
 
 //CONNECTING TO MONGO_DB

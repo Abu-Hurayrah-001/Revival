@@ -6,9 +6,10 @@ import createCourseRouter from "./courses/createCourse.route";
 import signOutRouter from "./auth/signOut.route";
 import googleOAuthRouter from "./auth/OAuth/googleOAuth.route";
 import discordOAuthRouter from "./auth/OAuth/discordOAuth.route";
+import { Router } from "express";
 
 // ROUTES
-export const routes = {
+export const routes: Record<string, Router> = {
     homeRouter,
     signUpRouter,
     signInRouter,

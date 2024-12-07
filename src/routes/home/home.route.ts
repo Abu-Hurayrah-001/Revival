@@ -2,7 +2,7 @@
 import { Router, Request, Response } from "express";
 
 // CONSTS. AND VARS.
-const homeRouter = Router();
+const homeRouter: Router = Router();
 
 //ROUTES
 homeRouter.get("/", (req: Request, res:Response) => {
