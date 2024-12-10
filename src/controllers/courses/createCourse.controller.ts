@@ -6,7 +6,7 @@ import cloudinary from "../../configs/cloudinary.config";
 
 // COURSE CREATION CONTROLLER
 export const handleCourseCreation = asyncErrorHandler(async(req: Request, res: Response, next: NextFunction): Promise<void> => {
-    const { title, batchIncludes, description, thumbnail, introVideoUrl, forWhom, classes = [], FAQ = [], originalPrice, discountedPrice, category = [], feedbacks = [], studentIDs = [] } = req.body as any;
+    const { title, batchIncludes, description, thumbnail, introVideoUrl, forWhom, classes, FAQ, originalPrice, discountedPrice, category, feedbacks, studentIDs } = req.body as any;
 
     if (!title || !batchIncludes || !description || !thumbnail || !introVideoUrl || !forWhom || !classes || !FAQ || !originalPrice || !category) {
         res.status(400).json({

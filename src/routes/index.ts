@@ -7,6 +7,7 @@ import signOutRouter from "./auth/signOut.route";
 import googleOAuthRouter from "./auth/OAuth/googleOAuth.route";
 import discordOAuthRouter from "./auth/OAuth/discordOAuth.route";
 import { Router } from "express";
+import editCourseRouter from "./courses/editCourse.route";
 
 // ROUTES
 export const routes: Record<string, Router> = {
@@ -17,4 +18,5 @@ export const routes: Record<string, Router> = {
     signOutRouter,
     googleOAuthRouter,
     discordOAuthRouter,
+    editCourseRouter,
 };

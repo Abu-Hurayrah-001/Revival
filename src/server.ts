@@ -28,12 +28,13 @@ app.use(...middlewares);
 
 // ROUTES
 app.use("/", routes.homeRouter);
-app.use("/api/sign-up", routes.signUpRouter);
-app.use("/api/sign-in", routes.signInRouter);
-app.use("/api/oauth", routes.googleOAuthRouter);
-app.use("/api/oauth", routes.discordOAuthRouter);
-app.use("/api/sign-out", routes.signOutRouter);
-app.use("/api/create-course", routes.createCourseRouter);
+app.use("/api/auth/sign-up", routes.signUpRouter);
+app.use("/api/auth/sign-in", routes.signInRouter);
+app.use("/api/auth/oauth", routes.googleOAuthRouter);
+app.use("/api/auth/oauth", routes.discordOAuthRouter);
+app.use("/api/auth/sign-out", routes.signOutRouter);
+app.use("/api/courses/create-course", routes.createCourseRouter);
+app.use("/api/courses/edit-course", routes.editCourseRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.send("One simply does not hit the backend-route on accident!!");
