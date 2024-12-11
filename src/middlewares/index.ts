@@ -15,7 +15,7 @@ import errorHandler from "./error_handling/erroHandler.middleware";
 export const middlewares: Array<RequestHandler | ErrorRequestHandler> = [
     cors(corsConfig),
     helmet(),
-    express.json(),
+    express.json({ limit: "10mb" }),
     session(sessionConfig),
     sessionRefresher,
     rateLimit(rateLimiterConfig),
