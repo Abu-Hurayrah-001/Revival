@@ -5,9 +5,8 @@ import Course, { ICourse } from "../../models/course/course.model";
 import cloudinary from "../../configs/cloudinary.config";
 
 // COURSE EDIT CONTROLLER
-
 export const handleCourseEdit = asyncErrorHandler(async(req: Request, res: Response, next: NextFunction) => {
-    const { courseId } = req.params as any;
+    const { courseId }: { courseId: string } = req.params as any;
     const { title, batchIncludes, description, thumbnailUrl, thumbnail, introVideoUrl, forWhom, classes, FAQ, originalPrice, discountedPrice, category, feedbacks, studentIDs } = req.body as any;
     const courseData: ICourse | null = await Course.findById(courseId);
 

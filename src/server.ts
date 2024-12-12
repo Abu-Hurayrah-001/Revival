@@ -35,6 +35,7 @@ app.use("/api/auth/oauth", routes.discordOAuthRouter);
 app.use("/api/auth/sign-out", routes.signOutRouter);
 app.use("/api/courses/create-course", routes.createCourseRouter);
 app.use("/api/courses/edit-course", routes.editCourseRouter);
+app.use("/api/courses/delete-course", routes.deleteCourseRouter);
 
 app.use((req: Request, res: Response, next: NextFunction) => {
     res.send("One simply does not hit the backend-route on accident!!");

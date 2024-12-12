@@ -4,7 +4,7 @@ import { ensureAuthenticated } from "../../middlewares/auth/ensureAuthenticated.
 import { ensureAdmin } from "../../middlewares/roles/ensureAdmin.middleware";
 import { handleCourseEdit } from "../../controllers/courses/editCourse.controller";
 
-// CREATE COURSE
+// EDIT COURSE
 const editCourseRouter: Router = express.Router();
 editCourseRouter.post("/:courseId", ensureAuthenticated, ensureAdmin, handleCourseEdit);
 
